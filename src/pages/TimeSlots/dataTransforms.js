@@ -16,13 +16,6 @@
 
   return inputData.reduce((acc, curr, index, array) => {
     const day = extractDay(curr.start_time);
-    // console.log(!!acc[day]);
-
-    // const restOfSlots = acc[day] ? {
-    //   start_time: array[index].start_time,
-    //   end_time: array[day].end_time
-    // } : {}
-
     const restOfSlots = acc[day] ? acc[day] : [];
 
     return {

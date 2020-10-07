@@ -1,4 +1,8 @@
 import React from "react";
+import moment from "moment";
+import {parseTime, parseDayAndTime} from './utils';
+
+import PickerItem from './PickerItem/PickerItem';
 
 const Picker = ({
   name,
@@ -8,20 +12,34 @@ const Picker = ({
   availableTimeSlots,
   setTimeSlot
 }) => {
-  const parseTime = isoString => new Date(isoString).toLocaleTimeString('en', { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
-
   const handleSelectTimeSlot = slot => {
-    console.log(slot);
-
     setSelectedTimeSlot({
       ...selectedTimeSlot,
       [id]: slot
     })
   };
+  const validateSlot = (slot, selectedSlot) => {
+    if (moment(slot.start_time).isSame(selectedSlot.start_time)) {
+      return true;
+    }
+    return moment(slot.start_time).isBetween(selectedSlot.start_time, selectedSlot.end_time);
+  };
 
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" }
-    return new Date(dateString).toLocaleDateString(undefined, options)
+  const isSlotAlreadyTaken = slot => {
+    let isTaken = false;
+
+    for (const selected in selectedTimeSlot) {
+      if (selectedTimeSlot.hasOwnProperty(selected)) {
+        const element = selectedTimeSlot[selected];
+
+        if (isTaken) {
+          break;
+        }
+        
+        isTaken = validateSlot(slot, element);
+      }
+    }
+    return !!isTaken;
   }
 
   return (
@@ -30,8 +48,8 @@ const Picker = ({
       {
         selectedTimeSlot[id] && (
           <div className="picker__selected-time-slot">
-            {parseTime(selectedTimeSlot[id].start_time)} -
-            {parseTime(selectedTimeSlot[id].end_time)} 
+            {parseDayAndTime(selectedTimeSlot[id].start_time)}-
+            {parseDayAndTime(selectedTimeSlot[id].end_time)} 
           </div>
         )
       }
@@ -53,12 +71,11 @@ const Picker = ({
                         key={iterator}
                         onClick={() => handleSelectTimeSlot(item)}
                       >
-                        <div>
-                          start time: {parseTime(item.start_time)}
-                        </div>
-                        <div>
-                          end time: {parseTime(item.end_time)}
-                        </div>
+                        <PickerItem 
+                          startTime={item.start_time}
+                          endTime={item.end_time}
+                          disabled={isSlotAlreadyTaken(item)}
+                        />
                       </div> 
                     )   
                   })
