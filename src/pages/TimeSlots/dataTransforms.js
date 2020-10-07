@@ -1,13 +1,13 @@
  export const transformSlots = inputData => {
   const extractDay = isoDate => {
     const MAP_DAYS = [
+      'Sunday',
       'Monday', 
       'Tuesday', 
       'Wednesday', 
       'Thursday', 
       'Friday', 
-      'Saturday', 
-      'Sunday'
+      'Saturday'
     ];
     const date = new Date(isoDate);
 
@@ -16,7 +16,7 @@
 
   return inputData.reduce((acc, curr) => {
     const day = extractDay(curr.start_time);
-    const allDays = acc[day] ? [{
+    const allSlots = acc[day] ? [{
       start_time: curr.start_time,
       end_time: curr.end_time
     }] : [{}]
@@ -28,7 +28,7 @@
           start_time: curr.start_time,
           end_time: curr.end_time
         },
-        ...allDays
+        ...allSlots
       ]
     }
   }, {})
