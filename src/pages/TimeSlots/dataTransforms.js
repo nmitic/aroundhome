@@ -16,10 +16,6 @@
 
   return inputData.reduce((acc, curr) => {
     const day = extractDay(curr.start_time);
-    const allSlots = acc[day] ? [{
-      start_time: curr.start_time,
-      end_time: curr.end_time
-    }] : [{}]
 
     return {
       ...acc,
@@ -27,8 +23,7 @@
         {
           start_time: curr.start_time,
           end_time: curr.end_time
-        },
-        ...allSlots
+        }
       ]
     }
   }, {})
