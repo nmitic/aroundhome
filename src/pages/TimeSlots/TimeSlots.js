@@ -23,6 +23,8 @@ const TimeSlots = () => {
       {
         data && (
           data.map(item => {
+    // console.log(transformSlots(item.time_slots))
+
             return (
               <Picker
                 key={item.id} 
