@@ -13,17 +13,26 @@ const Picker = ({
 
       <div className="picker__time-slot-listing">
         {
-          // availableTimeSlots.map(({start_time, end_time, day, id}) => {
-          //   return (
-          //     <div className="picker__time-slot-item" key={index}>
-          //       <div className="picker__time-slot-item-day">
-          //         {day}
-          //       </div>
-          //       start time: {start_time}
-          //       start time: {end_time}
-          //     </div>
-          //   )
-          // })
+          Object.keys(availableTimeSlots).map((day, iterator) => {
+            console.log(availableTimeSlots.day);
+            return (
+              <div className="picker__time-slot-item" key={iterator}>
+                <div className="picker__time-slot-item-day">
+                  {day}
+                </div>
+                {
+                  availableTimeSlots[day].map((item, iterator) => {
+                    return (
+                      <div key={iterator}>
+                        start time: {item.start_time}
+                        start time: {item.end_time}
+                      </div> 
+                    )   
+                  })
+                }
+              </div>
+            )
+          })
         }
       </div>
     </div>

@@ -22,14 +22,12 @@ const TimeSlots = () => {
       {
         data && (
           data.map(item => {
-            console.log(transformSlots(item.time_slots));
-
             return (
               <Picker 
                 key={item.id} 
                 name={item.name}
                 id={item.id}
-                availableTimeSlots={item.time_slots}
+                availableTimeSlots={transformSlots(item.time_slots)}
               />
             )
           })
