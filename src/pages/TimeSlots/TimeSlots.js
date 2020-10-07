@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import TimeSlotsRequest from './request';
+import {transformSlots} from './dataTransforms';
 
 import Picker from "./Picker/Picker";
 
@@ -21,6 +22,8 @@ const TimeSlots = () => {
       {
         data && (
           data.map(item => {
+            console.log(transformSlots(item.time_slots));
+
             return (
               <Picker 
                 key={item.id} 

@@ -13,14 +13,17 @@ const Picker = ({
 
       <div className="picker__time-slot-listing">
         {
-          availableTimeSlots.map(({start_time, end_time}) => {
-            return (
-              <div className="picker__time-slot-item">
-                start time: {start_time}
-                start time: {end_time}
-              </div>
-            )
-          })
+          // availableTimeSlots.map(({start_time, end_time, day, id}) => {
+          //   return (
+          //     <div className="picker__time-slot-item" key={index}>
+          //       <div className="picker__time-slot-item-day">
+          //         {day}
+          //       </div>
+          //       start time: {start_time}
+          //       start time: {end_time}
+          //     </div>
+          //   )
+          // })
         }
       </div>
     </div>
