@@ -6,7 +6,7 @@ import Picker from "./Picker/Picker";
 
 const TimeSlots = () => {
   const [data, setData] = useState([]);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState({})
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState({});
 
   useEffect(() => {
     fetchCompaniesAvailability();
@@ -23,8 +23,6 @@ const TimeSlots = () => {
       {
         data && (
           data.map(item => {
-    // console.log(transformSlots(item.time_slots))
-
             return (
               <Picker
                 key={item.id} 
