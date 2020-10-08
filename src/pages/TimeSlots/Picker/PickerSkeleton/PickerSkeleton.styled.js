@@ -7,10 +7,9 @@ const shineLoadingAnimation = keyframes`
 `;
 
 const sharedStyles = css`
-  background-color: ${props => props.theme.colors.skeleton};
   border-radius: 5px;
   margin: 20px 10px;
-
+  
   background-color: ${props => props.theme.colors.skeleton};
   background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
 	background-size: 40px 100%;
