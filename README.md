@@ -1,4 +1,4 @@
-Assignment can be view [here](https://nmitic.github.io/aroundhome/)
+Assignment can be viewed [HERE](https://nmitic.github.io/aroundhome/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
