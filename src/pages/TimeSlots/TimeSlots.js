@@ -5,6 +5,8 @@ import {transformSlots} from './dataTransforms';
 import Picker from "./Picker/Picker";
 import PickerSkeleton from './Picker/PickerSkeleton/PickerSkeleton';
 
+import {Styled} from './TimeSlots.styled';
+
 const TimeSlots = () => {
   const [data, setData] = useState([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState({});
@@ -20,7 +22,7 @@ const TimeSlots = () => {
   }
 
   return (
-    <div className="time-slots">
+    <Styled.Container>
       {
         data.length ? (
           data.map(item => {
@@ -35,12 +37,12 @@ const TimeSlots = () => {
               />
             )
           })
-        ): 
+        ) : 
         [1,2,3].map(item => {
           return <PickerSkeleton key={item}/>
         })
       }
-    </div>
+    </Styled.Container>
   );
 }
 

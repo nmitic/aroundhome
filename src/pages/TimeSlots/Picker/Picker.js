@@ -1,8 +1,10 @@
-import React from "react";
+import React, {Fragment} from "react";
 import moment from "moment";
-import {parseTime, parseDayAndTime} from './utils';
+import {parseTime, extractDay} from '../utils';
 
 import PickerItem from './PickerItem/PickerItem';
+
+import {Styled} from './Picker.styled.js';
 
 const Picker = ({
   name,
@@ -18,12 +20,19 @@ const Picker = ({
       [id]: slot
     })
   };
+  const handleClearSlot = id => {
+    const copiedState = {...selectedTimeSlot};
+    delete copiedState[id];
+
+    setSelectedTimeSlot(copiedState);
+  }
+
   const validateSlot = (slot, selectedSlot) => {
     if (moment(slot.start_time).isSame(selectedSlot.start_time)) {
       return true;
     }
     return moment(slot.start_time).isBetween(selectedSlot.start_time, selectedSlot.end_time);
-  };
+  }
 
   const isSlotAlreadyTaken = slot => {
     let isTaken = false;
@@ -43,49 +52,54 @@ const Picker = ({
   }
 
   return (
-    <div className="picker">
-      <div className="picker__company-name">{name}</div>
-      {
-        selectedTimeSlot[id] && (
-          <div className="picker__selected-time-slot">
-            {parseDayAndTime(selectedTimeSlot[id].start_time)}-
-            {parseDayAndTime(selectedTimeSlot[id].end_time)} 
-          </div>
-        )
-      }
-      <div className="picker__time-slot-listing">
+    <Styled.Container>
+      <Styled.Name>{name}</Styled.Name>
+      <Styled.SelectedSlot selected={!!selectedTimeSlot[id]}>
+        {
+          selectedTimeSlot[id] ? (
+            <Fragment>
+              <Styled.SelectedDay>
+                {extractDay(selectedTimeSlot[id].start_time)}
+              </Styled.SelectedDay>
+              {parseTime(selectedTimeSlot[id].start_time)}-
+              {parseTime(selectedTimeSlot[id].end_time)}
+              <Styled.Clear onClick={() => handleClearSlot(id)}>clear</Styled.Clear>
+            </Fragment>
+          ) : "Select time slot"
+        }
+      </Styled.SelectedSlot>
+      <Styled.Listing>
         {
           Object.keys(availableTimeSlots).map((day, iterator) => {
             return (
-              <div
+              <Styled.Item
                 className="picker__time-slot-item" 
                 key={iterator}
               >
-                <div className="picker__time-slot-item-day">
+                <Styled.Day>
                   {day}
-                </div>
+                </Styled.Day>
                 {
                   availableTimeSlots[day].map((item, iterator) => {
+                    const disabled = isSlotAlreadyTaken(item);
+
                     return (
-                      <div 
+                      <PickerItem 
+                        startTime={item.start_time}
+                        endTime={item.end_time}
+                        disabled={disabled}
                         key={iterator}
-                        onClick={() => handleSelectTimeSlot(item)}
-                      >
-                        <PickerItem 
-                          startTime={item.start_time}
-                          endTime={item.end_time}
-                          disabled={isSlotAlreadyTaken(item)}
-                        />
-                      </div> 
+                        handleClick={!disabled ? () => handleSelectTimeSlot(item) : () => {}}
+                    />
                     )   
                   })
                 }
-              </div>
+              </Styled.Item>
             )
           })
         }
-      </div>
-    </div>
+      </Styled.Listing>
+    </Styled.Container>
   );
 }
 

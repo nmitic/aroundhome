@@ -5,7 +5,7 @@ export default {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(mockData);
-      }, 1000);
+      }, 0);
     });
   }
 }
