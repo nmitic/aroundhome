@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {isValidIsoDate} from '../../../../utils/customPropTypes';
+
 import {parseTime} from '../../utils';
 
 import {Styled} from './PickerItem.styled.js';
@@ -27,5 +30,12 @@ const PickerItem = ({
     </Styled.Item>
   )
 }
+
+PickerItem.propTypes = {
+  startTime: isValidIsoDate,
+  endTime: isValidIsoDate,
+  disabled: PropTypes.bool,
+  handleClick: PropTypes.func,
+};
 
 export default PickerItem;

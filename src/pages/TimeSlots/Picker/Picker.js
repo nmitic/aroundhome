@@ -1,4 +1,5 @@
 import React, {Fragment} from "react";
+import PropTypes from 'prop-types';
 import moment from "moment";
 import {parseTime, extractDay} from '../utils';
 
@@ -12,7 +13,6 @@ const Picker = ({
   selectedTimeSlot,
   setSelectedTimeSlot,
   availableTimeSlots,
-  setTimeSlot
 }) => {
   const handleSelectTimeSlot = slot => {
     setSelectedTimeSlot({
@@ -99,5 +99,13 @@ const Picker = ({
     </Styled.Container>
   );
 }
+
+Picker.propTypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  selectedTimeSlot: PropTypes.object,
+  setSelectedTimeSlot: PropTypes.func.isRequired,
+  availableTimeSlots: PropTypes.object.isRequired,
+};
 
 export default Picker;
