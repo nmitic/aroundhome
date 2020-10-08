@@ -72,10 +72,7 @@ const Picker = ({
         {
           Object.keys(availableTimeSlots).map((day, iterator) => {
             return (
-              <Styled.Item
-                className="picker__time-slot-item" 
-                key={iterator}
-              >
+              <Fragment key={iterator}>
                 <Styled.Day>
                   {day}
                 </Styled.Day>
@@ -94,7 +91,7 @@ const Picker = ({
                     )   
                   })
                 }
-              </Styled.Item>
+              </Fragment>
             )
           })
         }
