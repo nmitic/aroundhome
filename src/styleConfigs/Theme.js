@@ -6,7 +6,8 @@ const theme = {
     danger: "tomato",
     success: "cyan",
     disabled: "beige",
-    gray: "gray"
+    gray: "gray",
+    skeleton: "#e2e5e7"
   },
   fonts: {
     roboto: 'Roboto, sans-serif'
